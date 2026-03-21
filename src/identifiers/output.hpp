@@ -11,6 +11,7 @@ void output(vector<string>::iterator it, ifstream &file) {
     // If the next token is a string, print the string
     else {
         cout << next.substr(1, next.length() - 2);
-        return;
     }
+    cout << endl;
+    return;
 }
