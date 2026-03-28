@@ -28,18 +28,15 @@ vector<string> split(string str) {
     result.push_back(str.substr(index + 1));
     return result;
 }
-
-struct ifStr {
-    bool flag;
-};
 struct loopStr {
     bool flag;
     string var;
-    streampos line;
 };
+// loopStr中类型为streampos的line变量
+// file.tellg(); 获取读取至此处的指针位置
+// file.seekg(<streampos>); 从位置重新开始读取
 
-stack<ifStr> ifSta;
 stack<loopStr> loopSta;
 char buffer[_BUFFER_SIZE_];
-map <string, void (*)(vector<string>::iterator, ifstream &)> identifiers;
+map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)> identifiers;
 map <string, long double> variables;

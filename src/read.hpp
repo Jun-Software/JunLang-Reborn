@@ -10,9 +10,13 @@ void read(char* argv[]) {
         exit(0);
     }
     // Read file.
+    vector<vector<string> > lines;
     while (file.good()) {
         file.getline(buffer, sizeof(buffer));
         vector<string> vec(split(string(buffer)));
-        interpreter(vec, file);
+        lines.push_back(vec);
+    }
+    for (int line = 0; line < lines.size(); line++) {
+        interpreter(lines[line], lines, line);
     }
 }

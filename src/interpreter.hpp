@@ -1,16 +1,19 @@
-void interpreter(vector<string> vec, ifstream &file) {
+void interpreter(vector<string> vec, vector<vector<string> > lines, int &line) {
     for (vector<string>::iterator it = vec.begin(); it != vec.end(); ++it) {
-        string current_identifier = (*it);
-        if ((current_identifier) == "" || (current_identifier[0]) == '#') {
-            continue;
+        string currentIdentifier = (*it);
+        if ((currentIdentifier) == "") {
+            return;
         }
-        map <string, void (*)(vector<string>::iterator, ifstream &)>::iterator idIt = identifiers.find(current_identifier);
+        if ((currentIdentifier[0]) == '#') {
+            return;
+        }
+        map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)>::iterator idIt = identifiers.find(currentIdentifier);
         if (idIt != identifiers.end()) {
-            idIt -> second(it, file);
+            (idIt -> second)(it, lines, line);
             return;
         }
         else {
-            cerr << "[Error] Unknown identifier: " << current_identifier << endl;
+            cerr << "[Error] Unknown identifier: " << currentIdentifier << endl;
             return;
         }
     }
