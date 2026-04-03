@@ -5,8 +5,22 @@
 void end(vector<string>::iterator it, vector<vector<string> > lines, int &line) {
     string next = *(it + 1);
     if (next == "if") {}
-    else if (next == "loop") {}
-    else if (next == "func") {}
+    else if (next == "loop") {
+        if (!loopSta.empty()) {
+            uStr tmp = loopSta.top();
+            if (variables[tmp.name]) {
+                line = tmp.line;
+                return;
+            }
+        }
+    }
+    else if (next == "func") {
+        if (!funcSta.empty()) {
+            line = funcSta.top().line;
+            funcSta.pop();
+            return;
+        }
+    }
     else if (next == "line") {
         cout << endl;
     }

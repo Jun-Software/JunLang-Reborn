@@ -12,6 +12,8 @@
 #include <stack>
 #include <condition_variable>
 #include <functional>
+#include <string>
+#include <cctype>
 using namespace std;
 #pragma GCC std("c++11")
 const string _VERSION_ = "a0.0.1";
@@ -28,15 +30,60 @@ vector<string> split(string str) {
     result.push_back(str.substr(index + 1));
     return result;
 }
-struct loopStr {
-    bool flag;
-    string var;
-};
-// loopStr中类型为streampos的line变量
-// file.tellg(); 获取读取至此处的指针位置
-// file.seekg(<streampos>); 从位置重新开始读取
+#include <cctype>
+#include <string>
 
-stack<loopStr> loopSta;
+string cleanString(const string& input) {
+    if (input.empty()) return "";
+    
+    const int len = static_cast<int>(input.length());
+    string result;
+    result.reserve(len);
+    
+    int i = 0;
+    while (i < len && isspace(static_cast<unsigned char>(input[i]))) {
+        ++i;
+    }
+    
+    bool lastWasSpace = false;
+    
+    for (; i < len; ++i) {
+        const char ch = input[i];
+        
+        if (ch == '#') {
+            break;
+        }
+        
+        if (isspace(static_cast<unsigned char>(ch))) {
+            if (!lastWasSpace) {
+                result += ' ';
+                lastWasSpace = true;
+            }
+        } else {
+            result += static_cast<char>(tolower(static_cast<unsigned char>(ch)));
+            lastWasSpace = false;
+        }
+    }
+
+    int end_pos = static_cast<int>(result.length()) - 1;
+    while (end_pos >= 0 && isspace(static_cast<unsigned char>(result[end_pos]))) {
+        --end_pos;
+    }
+    
+    if (end_pos < 0) {
+        return "";
+    }
+    
+    return result.substr(0, end_pos + 1);
+}
+struct uStr {
+    int line;
+    string name;
+};
+
+stack<uStr> loopSta;
+stack<uStr> funcSta;
 char buffer[_BUFFER_SIZE_];
 map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)> identifiers;
 map <string, long double> variables;
+map <string, int> funcs;
