@@ -4,7 +4,7 @@ void interpreter(vector<string> vec, vector<vector<string> > lines, int &line) {
         if ((currentIdentifier) == "") {
             return;
         }
-        map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)>::iterator idIt = identifiers.find(currentIdentifier);
+        unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)>::iterator idIt = identifiers.find(currentIdentifier);
         if (idIt != identifiers.end()) {
             (idIt -> second)(it, lines, line);
             return;

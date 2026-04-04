@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <cstring>
 #include <fstream>
 #include <sstream>
@@ -30,8 +30,6 @@ vector<string> split(string str) {
     result.push_back(str.substr(index + 1));
     return result;
 }
-#include <cctype>
-#include <string>
 
 string cleanString(const string& input) {
     if (input.empty()) return "";
@@ -84,6 +82,6 @@ struct uStr {
 stack<uStr> loopSta;
 stack<uStr> funcSta;
 char buffer[_BUFFER_SIZE_];
-map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)> identifiers;
-map <string, long double> variables;
-map <string, int> funcs;
+unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)> identifiers;
+unordered_map <string, long double> variables;
+unordered_map <string, int> funcs;

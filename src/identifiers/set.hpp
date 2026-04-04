@@ -6,7 +6,7 @@ void set(vector<string>::iterator it, vector<vector<string> > lines, int &line) 
     string next = *(it + 1);
     vector<string> vec = split(next);
     for (int index = 0; index < vec.size(); index++) {
-        variables[vec[index]] = atoi((vec[index + 1]).c_str());
+        variables.insert_or_assign(vec[index], stold(vec[index + 1]));
     }
     return;
 }
