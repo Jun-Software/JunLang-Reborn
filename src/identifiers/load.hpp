@@ -17,7 +17,20 @@ void load(vector<string>::iterator it, vector<vector<string> > lines, int &line)
     }
     string libPath = "packages/" + packageId + ".jun" + packageType;
     if (packageType == "whl") {
-        read(libPath.c_str());
+        string fileName = string(libPath);
+        ifstream file(fileName);
+        if (!file.is_open()) {
+            cerr << "[ERROR] File " << fileName << " cannot open.\n";
+            exit(0);
+        }
+        vector<vector<string> > tmp;
+        tmp.push_back({""});
+        while (file.good()) {
+            file.getline(buffer, sizeof(buffer));
+            vector<string> vec(split(cleanString(buffer)));
+            tmp.push_back(vec);
+        }
+        // TODO
         return;
     }
 #ifdef _WIN32
