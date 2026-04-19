@@ -6,6 +6,7 @@
 #include "identifiers/loop.hpp"
 #include "identifiers/func.hpp"
 #include "identifiers/run.hpp"
+#include "identifiers/load.hpp"
 
 void load() {
     identifiers["out"] = output;
@@ -17,4 +18,5 @@ void load() {
     identifiers["loop"] = loop;
     identifiers["func"] = func;
     identifiers["run"] = run;
+    identifiers["load"] = load;
 }

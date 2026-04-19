@@ -14,9 +14,18 @@
 #include <functional>
 #include <string>
 #include <cctype>
+#ifdef _WIN32
+#define libload true
+#include <windows.h>
+#elif __linux__
+#include <dlfcn.h>
+#define libload true
+#else
+#define libload false
+#endif
 using namespace std;
 #pragma GCC std("c++11")
-const string _VERSION_ = "a0.0.1";
+const string _VERSION_ = "a0.1.0";
 const int _BUFFER_SIZE_ = 1024;
 
 vector<string> split(string str) {

@@ -2,11 +2,11 @@
  * Read file
 **/
 #include "interpreter.hpp"
-void read(char* argv[]) {
-    string fileName = string(argv[1]);
+void read(const char* filePath) {
+    string fileName = string(filePath);
     ifstream file(fileName);
     if (!file.is_open()) {
-        cerr << "[ERROR] File cannot open.\n";
+        cerr << "[ERROR] File " << fileName << " cannot open.\n";
         exit(0);
     }
     // Read file.
