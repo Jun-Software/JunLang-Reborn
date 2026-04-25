@@ -91,6 +91,6 @@ struct uStr {
 stack<uStr> loopSta;
 stack<uStr> funcSta;
 char buffer[_BUFFER_SIZE_];
-unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)> identifiers;
+unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> > &, int &)> identifiers;
 unordered_map <string, long double> variables;
 unordered_map <string, int> funcs;

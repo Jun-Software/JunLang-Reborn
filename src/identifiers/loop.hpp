@@ -2,7 +2,7 @@
  * loop function
  * By lemonorangeapple
 **/
-void loop(vector<string>::iterator it, vector<vector<string> > lines, int &line) {
+void loop(vector<string>::iterator it, vector<vector<string> > &lines, int &line) {
     string next = *(it + 1);
     int tmp = line;
     if (variables.find(next) != variables.end()) {

@@ -2,7 +2,7 @@
  * run function
  * By lemonorangeapple
 **/
-void run(vector<string>::iterator it, vector<vector<string> > lines, int &line) {
+void run(vector<string>::iterator it, vector<vector<string> > &lines, int &line) {
     string next = *(it + 1);
     vector<string> vec = split(next);
     if (vec[0] == "func") {
@@ -14,8 +14,8 @@ void run(vector<string>::iterator it, vector<vector<string> > lines, int &line) 
             cerr << "[Error, " << line << "] Unknown function: " << vec[1] << endl;
         }
     }
-    else if (vec[0] == "prog") {
-        read(vec[1].c_str());
+    else if (vec[0] == "sys") {
+        system(vec[1].c_str());
     }
     return;
 }

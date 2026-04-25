@@ -3,7 +3,7 @@
  * By lemonorangeapple
  * Load Packages(.DLL/.SO)
 **/
-void load(vector<string>::iterator it, vector<vector<string> > lines, int &line) {
+void load(vector<string>::iterator it, vector<vector<string> > &lines, int &line) {
     string next = *(it + 1);
     string packageType = split(next)[0];
     string packageId = split(next)[1];
@@ -24,13 +24,12 @@ void load(vector<string>::iterator it, vector<vector<string> > lines, int &line)
             exit(0);
         }
         vector<vector<string> > tmp;
-        tmp.push_back({""});
         while (file.good()) {
             file.getline(buffer, sizeof(buffer));
             vector<string> vec(split(cleanString(buffer)));
             tmp.push_back(vec);
         }
-        // TODO
+        lines.insert(lines.begin() + line + 1, tmp.begin(), tmp.end());
         return;
     }
 #ifdef _WIN32
@@ -46,8 +45,8 @@ void load(vector<string>::iterator it, vector<vector<string> > lines, int &line)
         exit(0);
     }
 #endif
-    typedef unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)> (*loadFunc)();
-    typedef unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> >, int &)> mapType;
+    typedef unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> > &, int &)> (*loadFunc)();
+    typedef unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> > &, int &)> mapType;
 #ifdef _WIN32
     loadFunc pAdd = (loadFunc)GetProcAddress(hDll, "load");
     if (pAdd == NULL) {

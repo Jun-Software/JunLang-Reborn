@@ -2,7 +2,7 @@
  * Out function
  * By lemonorangeapple
 **/
-void output(vector<string>::iterator it, vector<vector<string> > lines, int &line) {
+void output(vector<string>::iterator it, vector<vector<string> > &lines, int &line) {
     // Check if the next token is a variable
     string next = *(it + 1);
     if (next[0] != '"') {

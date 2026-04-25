@@ -2,7 +2,7 @@
  * end function
  * By lemonorangeapple
 **/
-void end(vector<string>::iterator it, vector<vector<string> > lines, int &line) {
+void end(vector<string>::iterator it, vector<vector<string> > &lines, int &line) {
     string next = *(it + 1);
     if (next == "if") {}
     else if (next == "loop") {

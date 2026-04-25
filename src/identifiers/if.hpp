@@ -2,7 +2,7 @@
  * if function
  * By lemonorangeapple
 **/
-void _if(vector<string>::iterator it, vector<vector<string> > lines, int &line) {
+void _if(vector<string>::iterator it, vector<vector<string> > &lines, int &line) {
     string next = *(it + 1);
     int tmp = line;
     if (variables.find(next) != variables.end()) {
