@@ -25,7 +25,7 @@
 #endif
 using namespace std;
 #pragma GCC std("c++11")
-const string _VERSION_ = "a0.1.0";
+const string _VERSION_ = "v1.0.0";
 const int _BUFFER_SIZE_ = 1024;
 
 vector<string> split(string str) {
@@ -83,6 +83,7 @@ string cleanString(const string& input) {
     
     return result.substr(0, end_pos + 1);
 }
+
 struct uStr {
     int line;
     string name;
@@ -94,3 +95,72 @@ char buffer[_BUFFER_SIZE_];
 unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> > &, int &)> identifiers;
 unordered_map <string, long double> variables;
 unordered_map <string, int> funcs;
+
+long double convert(string str) {
+    if (isdigit(str[0])) {
+        return stold(str);
+    }
+    else {
+        return variables[str];
+    }
+}
+
+long double eval(string str, int &line) {
+    if (str[0] == '~') {
+        return convert(str.substr(1));
+    }
+    vector<string> splited;
+    long double res;
+    stringstream ss(str);
+    string buffer;
+    while (getline(ss, buffer, ' ')) {
+        if (!buffer.empty()) {
+            splited.push_back(buffer);
+        }
+    } // 将传入字符串沿空格分割为多部分
+    // 遍历分割后的多部分
+    if (splited[0] == "not") {
+        res = !(bool)(convert(splited[1]));
+        return res;
+    }
+    res = convert(splited[0]);
+    // 为什么string没有switch!!!!
+    for (vector<string>::iterator it = splited.begin() + 1; it != splited.end(); ++it) {
+        if ((*it) == "add") {
+            res += convert(*(it+1));
+        }
+        else if ((*it) == "sub") {
+            res -= convert(*(it+1));
+        }
+        else if ((*it) == "mlp") {
+            res *= convert(*(it+1));
+        }
+        else if ((*it) == "div") {
+            res /= convert(*(it+1));
+        }
+        else if ((*it) == "eq") {
+            res = (res == convert(*(it+1)));
+        }
+        else if ((*it) == "ne") {
+            res = (res != convert(*(it+1)));
+        }
+        else if ((*it) == "gt") {
+            res = (res > convert(*(it+1)));
+        }
+        else if ((*it) == "ge") {
+            res = (res >= convert(*(it+1)));
+        }
+        else if ((*it) == "lt") {
+            res = (res < convert(*(it+1)));
+        }
+        else if ((*it) == "le") {
+            res = (res <= convert(*(it+1)));
+        }
+        else {
+            cerr << "[Error, " << line << "] Unknown EVAL identifier: " << (*it) << endl;
+            exit(0);
+        }
+        it++;
+    }
+    return res;
+}
