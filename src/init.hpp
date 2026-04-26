@@ -24,7 +24,7 @@
 #define libload false
 #endif
 using namespace std;
-#pragma GCC std("c++11")
+#pragma GCC std("c++17")
 const string _VERSION_ = "v1.0.0";
 const int _BUFFER_SIZE_ = 1024;
 
