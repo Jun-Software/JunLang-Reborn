@@ -2,8 +2,11 @@
  * Out function
  * By lemonorangeapple
 **/
-void output(vector<string>::iterator it, vector<vector<string> > &lines, int &line) {
-    // Check if the next token is a variable
+void output(vector<string>::iterator it, vector<string>::iterator end, vector<vector<string> > &lines, int &line) {
+    if (it + 1 == end) {
+        cerr << "[Error, " << line << "] Missing argument" << endl;
+        exit(0);
+    }
     string next = *(it + 1);
     if (next[0] != '"') {
         cout << eval(next, line);

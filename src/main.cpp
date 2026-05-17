@@ -10,6 +10,7 @@ int main(int argc, char* argv[]) {
         cout << "Usage: " << argv[0] << " [filename]" << endl;
         exit(0);
     }
+    cout << fixed;
     load();
     // Read file.
     read(argv[1]);

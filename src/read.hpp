@@ -17,6 +17,7 @@ void read(const char* filePath) {
         vector<string> vec(split(cleanString(buffer)));
         lines.push_back(vec);
     }
+    lines.push_back({""});
     for (int line = 0; line < lines.size(); line++) {
         interpreter(lines[line], lines, line);
     }

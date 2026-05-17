@@ -2,7 +2,11 @@
  * func function
  * By lemonorangeapple
 **/
-void func(vector<string>::iterator it, vector<vector<string> > &lines, int &line) {
+void func(vector<string>::iterator it, vector<string>::iterator end, vector<vector<string> > &lines, int &line) {
+    if (it + 1 == end) {
+        cerr << "[Error, " << line << "] Missing argument" << endl;
+        exit(0);
+    }
     string next = *(it + 1);
     int tmp = line;
     funcs.insert_or_assign(next, line + 1);
@@ -13,5 +17,6 @@ void func(vector<string>::iterator it, vector<vector<string> > &lines, int &line
             exit(0);
         }
     }
+    funcSta.push({tmp, ""});
     return;
 }

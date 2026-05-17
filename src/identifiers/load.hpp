@@ -3,7 +3,11 @@
  * By lemonorangeapple
  * Load Packages(.DLL/.SO)
 **/
-void load(vector<string>::iterator it, vector<vector<string> > &lines, int &line) {
+void load(vector<string>::iterator it, vector<string>::iterator end, vector<vector<string> > &lines, int &line) {
+    if (it + 1 == end) {
+        cerr << "[Error, " << line << "] Missing argument" << endl;
+        exit(0);
+    }
     string next = *(it + 1);
     string packageType = split(next)[0];
     string packageId = split(next)[1];
@@ -45,8 +49,8 @@ void load(vector<string>::iterator it, vector<vector<string> > &lines, int &line
         exit(0);
     }
 #endif
-    typedef unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> > &, int &)> (*loadFunc)();
-    typedef unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> > &, int &)> mapType;
+    typedef unordered_map <string, void (*)(vector<string>::iterator, vector<string>::iterator, vector<vector<string> > &, int &)> (*loadFunc)();
+    typedef unordered_map <string, void (*)(vector<string>::iterator, vector<string>::iterator, vector<vector<string> > &, int &)> mapType;
 #ifdef _WIN32
     loadFunc pAdd = (loadFunc)GetProcAddress(hDll, "load");
     if (pAdd == NULL) {

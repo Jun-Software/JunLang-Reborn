@@ -14,6 +14,8 @@
 #include <functional>
 #include <string>
 #include <cctype>
+#include <iomanip>
+#include <random>
 #ifdef _WIN32
 #define libload true
 #include <windows.h>
@@ -92,7 +94,8 @@ struct uStr {
 stack<uStr> loopSta;
 stack<uStr> funcSta;
 char buffer[_BUFFER_SIZE_];
-unordered_map <string, void (*)(vector<string>::iterator, vector<vector<string> > &, int &)> identifiers;
+unordered_map <string, void (*)(vector<string>::iterator, vector<string>::iterator, vector<vector<string> > &, int &)> identifiers;
+unordered_map <string, int> exportedFuncs;
 unordered_map <string, long double> variables;
 unordered_map <string, int> funcs;
 
@@ -122,6 +125,12 @@ long double eval(string str, int &line) {
     if (splited[0] == "not") {
         res = !(bool)(convert(splited[1]));
         return res;
+    }
+    else if (splited[0] == "rand") {
+        random_device rd;
+        mt19937 generator(rd());
+        res = generator();
+        return res / 1000000;
     }
     res = convert(splited[0]);
     // 为什么string没有switch!!!!
