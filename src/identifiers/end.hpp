@@ -27,7 +27,7 @@ void end(vector<string>::iterator it, vector<string>::iterator end, vector<vecto
         }
     }
     else if (next == "line") {
-        cout << endl;
+        std::cout << endl;
     }
     else if (next == "prog") {
         exit(0);

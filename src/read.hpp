@@ -4,7 +4,7 @@
 #include "interpreter.hpp"
 void read(const char* filePath) {
     string fileName = string(filePath);
-    ifstream file(fileName);
+    std::ifstream file(fileName);
     if (!file.is_open()) {
         cerr << "[ERROR] File " << fileName << " cannot open.\n";
         exit(0);

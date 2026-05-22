@@ -8,6 +8,6 @@ void input(vector<string>::iterator it, vector<string>::iterator end, vector<vec
         exit(0);
     }
     long double temp;
-    cin >> temp;
+    std::cin >> temp;
     variables[*(it + 1)] = temp;
 }

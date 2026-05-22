@@ -9,11 +9,11 @@ void output(vector<string>::iterator it, vector<string>::iterator end, vector<ve
     }
     string next = *(it + 1);
     if (next[0] != '"') {
-        cout << eval(next, line);
+        std::cout << eval(next, line);
     }
     // If the next token is a string, print the string
     else {
-        cout << next.substr(1, next.length() - 2);
+        std::cout << next.substr(1, next.length() - 2);
     }
     return;
 }

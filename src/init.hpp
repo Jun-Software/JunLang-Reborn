@@ -25,7 +25,12 @@
 #else
 #define libload false
 #endif
-using namespace std;
+using std::cerr;
+using std::endl;
+using std::vector;
+using std::stack;
+using std::unordered_map;
+using std::string;
 #pragma GCC std("c++17")
 const string _VERSION_ = "v1.0.0";
 const int _BUFFER_SIZE_ = 1024;
@@ -114,7 +119,7 @@ long double eval(string str, int &line) {
     }
     vector<string> splited;
     long double res;
-    stringstream ss(str);
+    std::stringstream ss(str);
     string buffer;
     while (getline(ss, buffer, ' ')) {
         if (!buffer.empty()) {
@@ -127,8 +132,8 @@ long double eval(string str, int &line) {
         return res;
     }
     else if (splited[0] == "rand") {
-        random_device rd;
-        mt19937 generator(rd());
+        std::random_device rd;
+        std::mt19937 generator(rd());
         res = generator();
         return res / 1000000;
     }

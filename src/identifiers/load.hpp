@@ -22,7 +22,7 @@ void load(vector<string>::iterator it, vector<string>::iterator end, vector<vect
     string libPath = "packages/" + packageId + ".jun" + packageType;
     if (packageType == "whl") {
         string fileName = string(libPath);
-        ifstream file(fileName);
+        std::ifstream file(fileName);
         if (!file.is_open()) {
             cerr << "[ERROR] File " << fileName << " cannot open.\n";
             exit(0);

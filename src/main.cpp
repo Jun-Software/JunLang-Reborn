@@ -6,11 +6,11 @@ int main(int argc, char* argv[]) {
     // Check if there is a filename.
     if (argc == 1) {
         // Output usage.
-        cout << "JunLang Reborn " << _VERSION_ << endl;
-        cout << "Usage: " << argv[0] << " [filename]" << endl;
+        std::cout << "JunLang Reborn " << _VERSION_ << endl;
+        std::cout << "Usage: " << argv[0] << " [filename]" << endl;
         exit(0);
     }
-    cout << fixed;
+    std::cout << std::fixed;
     load();
     // Read file.
     read(argv[1]);
