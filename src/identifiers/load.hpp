@@ -1,7 +1,5 @@
 /**
- * load function
- * By lemonorangeapple
- * Load Packages(.DLL/.SO)
+ * Load a package file or a native library plugin.
 **/
 void load(vector<string>::iterator it, vector<string>::iterator end, vector<vector<string> > &lines, int &line) {
     if (it + 1 == end) {
@@ -21,6 +19,7 @@ void load(vector<string>::iterator it, vector<string>::iterator end, vector<vect
     }
     string libPath = "packages/" + packageId + ".jun" + packageType;
     if (packageType == "whl") {
+        // WHL packages are plain script files injected into the current stream.
         string fileName = string(libPath);
         std::ifstream file(fileName);
         if (!file.is_open()) {
@@ -49,6 +48,7 @@ void load(vector<string>::iterator it, vector<string>::iterator end, vector<vect
         exit(0);
     }
 #endif
+    // Native packages expose a load() symbol that returns new identifiers.
     typedef unordered_map <string, void (*)(vector<string>::iterator, vector<string>::iterator, vector<vector<string> > &, int &)> (*loadFunc)();
     typedef unordered_map <string, void (*)(vector<string>::iterator, vector<string>::iterator, vector<vector<string> > &, int &)> mapType;
 #ifdef _WIN32

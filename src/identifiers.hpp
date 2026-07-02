@@ -10,6 +10,7 @@
 #include "identifiers/export.hpp"
 
 void load() {
+    // Register the built-in commands available to every script.
     identifiers["out"] = output;
     identifiers["line"] = output;
     identifiers["set"] = set;

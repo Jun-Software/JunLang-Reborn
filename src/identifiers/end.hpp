@@ -1,6 +1,5 @@
 /**
- * end function
- * By lemonorangeapple
+ * Handle block terminators and program exit markers.
 **/
 void end(vector<string>::iterator it, vector<string>::iterator end, vector<vector<string> > &lines, int &line) {
     if (it + 1 == end) {
@@ -11,6 +10,7 @@ void end(vector<string>::iterator it, vector<string>::iterator end, vector<vecto
     if (next == "if") {}
     else if (next == "loop") {
         if (!loopSta.empty()) {
+            // Jump back to the loop head while the loop condition remains true.
             uStr tmp = loopSta.top();
             if (variables[tmp.name]) {
                 line = tmp.line;
@@ -21,6 +21,7 @@ void end(vector<string>::iterator it, vector<string>::iterator end, vector<vecto
     }
     else if (next == "func") {
         if (!funcSta.empty()) {
+            // Restore the caller line after a function returns.
             line = funcSta.top().line;
             funcSta.pop();
             return;

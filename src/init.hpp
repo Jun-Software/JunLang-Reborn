@@ -1,7 +1,7 @@
 /*
  * init.hpp
- * 初始化头文件、结构体声明、常量定义
-*/
+ * Initialize shared headers, helpers, and global runtime state.
+ */
 #include <iostream>
 #include <cstdlib>
 #include <vector>
@@ -36,6 +36,7 @@ const string _VERSION_ = "v1.0.0";
 const int _BUFFER_SIZE_ = 1024;
 
 vector<string> split(string str) {
+    // Split one command into keyword and trailing argument payload.
     vector<string> result;
     size_t index = str.find(' ');
     if (index == string::npos) {
@@ -48,26 +49,27 @@ vector<string> split(string str) {
 }
 
 string cleanString(const string& input) {
+    // Trim leading whitespace, collapse inner whitespace, and drop comments.
     if (input.empty()) return "";
-    
+
     const int len = static_cast<int>(input.length());
     string result;
     result.reserve(len);
-    
+
     int i = 0;
     while (i < len && isspace(static_cast<unsigned char>(input[i]))) {
         ++i;
     }
-    
+
     bool lastWasSpace = false;
-    
+
     for (; i < len; ++i) {
         const char ch = input[i];
-        
+
         if (ch == '#') {
             break;
         }
-        
+
         if (isspace(static_cast<unsigned char>(ch))) {
             if (!lastWasSpace) {
                 result += ' ';
@@ -83,11 +85,11 @@ string cleanString(const string& input) {
     while (end_pos >= 0 && isspace(static_cast<unsigned char>(result[end_pos]))) {
         --end_pos;
     }
-    
+
     if (end_pos < 0) {
         return "";
     }
-    
+
     return result.substr(0, end_pos + 1);
 }
 
@@ -105,6 +107,7 @@ unordered_map <string, long double> variables;
 unordered_map <string, int> funcs;
 
 long double convert(string str) {
+    // Numeric literals are parsed directly; everything else is a variable lookup.
     if (isdigit(str[0])) {
         return stold(str);
     }
@@ -114,6 +117,7 @@ long double convert(string str) {
 }
 
 long double eval(string str, int &line) {
+    // Support unary "not", random values, and simple left-to-right binary ops.
     if (str[0] == '~') {
         return convert(str.substr(1));
     }
@@ -125,8 +129,7 @@ long double eval(string str, int &line) {
         if (!buffer.empty()) {
             splited.push_back(buffer);
         }
-    } // 将传入字符串沿空格分割为多部分
-    // 遍历分割后的多部分
+    }
     if (splited[0] == "not") {
         res = !(bool)(convert(splited[1]));
         return res;
@@ -138,7 +141,6 @@ long double eval(string str, int &line) {
         return res / 1000000;
     }
     res = convert(splited[0]);
-    // 为什么string没有switch!!!!
     for (vector<string>::iterator it = splited.begin() + 1; it != splited.end(); ++it) {
         if ((*it) == "add") {
             res += convert(*(it+1));

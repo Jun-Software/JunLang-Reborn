@@ -1,6 +1,5 @@
 /**
- * if function
- * By lemonorangeapple
+ * Skip forward to the matching end-if when the condition is false.
 **/
 void _if(vector<string>::iterator it, vector<string>::iterator end, vector<vector<string> > &lines, int &line) {
     if (it + 1 == end) {
@@ -12,6 +11,7 @@ void _if(vector<string>::iterator it, vector<string>::iterator end, vector<vecto
     if (eval(next, line)) {
         return;
     }
+    // Search for the matching "end if" in the current line stream.
     while (!(lines[line][0] == "end" && lines[line][1] == "if")) {
         line++;
         if (line == lines.size()) {

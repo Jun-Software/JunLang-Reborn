@@ -1,3 +1,4 @@
+// Dispatch one tokenized line to either a built-in identifier or an exported function.
 void interpreter(vector<string> vec, vector<vector<string> > &lines, int &line) {
     for (vector<string>::iterator it = vec.begin(); it != vec.end(); ++it) {
         string currentIdentifier = (*it);
@@ -6,7 +7,7 @@ void interpreter(vector<string> vec, vector<vector<string> > &lines, int &line) 
         }
         unordered_map <string, int>::iterator efIt = exportedFuncs.find(currentIdentifier);
         if (efIt != exportedFuncs.end()) {
-            string next = (efIt -> first);
+            // Jump into an exported function and remember where to return.
             uStr tmp;
             tmp.line = line;
             line = (efIt -> second) - 1;

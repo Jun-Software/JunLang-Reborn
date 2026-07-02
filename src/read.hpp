@@ -1,5 +1,5 @@
 /**
- * Read file
+ * Read a script file, normalize each line, and feed it to the interpreter.
 **/
 #include "interpreter.hpp"
 void read(const char* filePath) {
@@ -9,7 +9,7 @@ void read(const char* filePath) {
         cerr << "[ERROR] File " << fileName << " cannot open.\n";
         exit(0);
     }
-    // Read file.
+    // Keep a blank sentinel at both ends so line-based jumps stay safe.
     vector<vector<string> > lines;
     lines.push_back({""});
     while (file.good()) {
